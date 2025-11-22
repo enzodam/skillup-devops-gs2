@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="topbar">
+    <div class="topbar__left">
+        <a th:href="@{/}" class="topbar__brand">
+            <!-- LOGO MAIOR -->
+            <img th:src="@{/images/Logo_gs.png}" alt="SkillUp" class="topbar__logo">
+        </a>
+    </div>
+
+    <nav class="topbar__nav">
+        <a href="#quemsomos">Quem somos</a>
+        <a href="#comofunciona">Como funciona</a>
+        <a href="#iapratica">IA na prática</a>
+        <a href="#beneficios">Benefícios</a>
+    </nav>
+
+    <div class="topbar__actions">
+        <a th:href="@{/login}" class="topbar__link">Login</a>
+        <a th:href="@{/register}" class="topbar__btn">Registre-se</a>
+    </div>
+</header>
+</body>
+</html>

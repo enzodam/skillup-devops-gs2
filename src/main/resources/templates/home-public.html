@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('SkillUp • Requalificação com IA', ~{::content})}">
+
+<body>
+<div th:fragment="content" class="landing">
+
+    <!-- HERO ================================================================== -->
+    <section id="hero" class="hero">
+        <div class="hero__grid">
+
+            <!-- Texto do lado esquerdo -->
+            <div class="hero__content">
+                <p class="hero__tag">💡 Plataforma de Requalificação Profissional com IA</p>
+
+                <h1>
+                    Reescreva sua carreira<br/>
+                    com recomendações inteligentes.
+                </h1>
+
+                <p class="hero__subtitle">
+                    O <strong>SkillUp</strong> conecta pessoas que querem se requalificar
+                    com cursos e oportunidades alinhados às suas
+                    <strong>habilidades</strong> e <strong>metas profissionais</strong>.
+                    A IA analisa seu perfil e te sugere caminhos focados
+                    nas <strong>profissões do futuro</strong>.
+                </p>
+
+                <div class="hero__actions">
+                    <a th:href="@{/register}" class="btn btn-primary">
+                        Começar agora (é grátis)
+                    </a>
+                    <a th:href="@{/login}" class="btn btn-outline">
+                        Já tenho conta
+                    </a>
+                </div>
+
+                <p class="hero__meta">
+                    Ideal para pessoas em transição de carreira, estudantes e profissionais
+                    que querem se atualizar sem se perder em mil cursos.
+                </p>
+            </div>
+
+            <!-- IMAGEM NOVA DO LADO DIREITO -->
+            <div class="hero__visual">
+                <img th:src="@{/images/pensando.png}" alt="Estudante pensando com IA"
+                     class="hero__image">
+            </div>
+        </div>
+    </section>
+
+    <!-- EXEMPLO DE PLANO ====================================================== -->
+    <section id="plano" class="section section--plan">
+        <div class="section__inner">
+            <h2>Exemplo de plano de requalificação</h2>
+            <p>
+                Só para você visualizar como a IA do SkillUp pode montar uma trilha
+                pra quem quer migrar para <strong>Desenvolvedor Front-end</strong>.
+            </p>
+
+            <div class="plan-card">
+                <p><strong>Perfil inicial:</strong> trabalha em área administrativa, já estudou lógica, HTML e CSS.</p>
+
+                <ul>
+                    <li><strong>Passo 1:</strong> Curso de JavaScript moderno (nível intermediário).</li>
+                    <li><strong>Passo 2:</strong> React para iniciantes com projetos práticos.</li>
+                    <li><strong>Passo 3:</strong> Criação de um portfólio orientado para vagas júnior.</li>
+                </ul>
+
+                <p>
+                    Esse é só um exemplo. Quando você se cadastrar, o SkillUp monta um plano
+                    <strong>personalizado pro seu perfil</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUEM SOMOS ============================================================ -->
+    <section id="quemsomos" class="section section--light">
+        <div class="section__inner">
+            <h2>Quem somos</h2>
+            <p>
+                O SkillUp nasce com um objetivo claro: <strong>encurtar o caminho</strong> entre
+                quem quer mudar de área e as oportunidades reais do mercado.
+            </p>
+            <p>
+                Em vez de jogar uma lista infinita de cursos, usamos dados sobre
+                <strong>habilidades, trilhas de carreira e profissões emergentes</strong>
+                para montar um plano de estudo focado, com o melhor custo-benefício de tempo e esforço.
+            </p>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA ========================================================= -->
+    <section id="comofunciona" class="section">
+        <div class="section__inner">
+            <h2>Como funciona</h2>
+
+            <div class="steps">
+                <div class="step">
+                    <span class="step__number">1</span>
+                    <h3>Conte onde você está</h3>
+                    <p>
+                        Você preenche sua <strong>profissão atual</strong>, sua
+                        <strong>meta profissional</strong> e seu nível em cada habilidade.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <span class="step__number">2</span>
+                    <h3>Deixe a IA trabalhar</h3>
+                    <p>
+                        Nosso motor de recomendações calcula um
+                        <strong>score de compatibilidade</strong> entre você e cada curso cadastrado,
+                        usando técnicas de <strong>IA generativa</strong>.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <span class="step__number">3</span>
+                    <h3>Siga uma trilha clara</h3>
+                    <p>
+                        Você recebe uma lista de cursos priorizados, com
+                        <strong>trilhas sugeridas</strong> para chegar até sua meta
+                        profissional sem desperdiçar tempo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IA NA PRÁTICA (AGORA AZUL DO LOGO) =================================== -->
+    <section id="iapratica" class="section section--dark">
+        <div class="section__inner">
+            <h2>IA Generativa a seu favor</h2>
+            <p>
+                O SkillUp integra <strong>Spring AI</strong> à nossa API em Java,
+                permitindo gerar recomendações mais inteligentes e comentários personalizados
+                sobre quais cursos fazem mais sentido para o seu objetivo.
+            </p>
+            <ul class="bullet-list">
+                <li>Análise de habilidades e lacunas de conhecimento;</li>
+                <li>Resumo das principais competências de cada curso;</li>
+                <li>Explicação, em linguagem simples, de por que aquele curso é relevante para você.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SEÇÃO: Benefícios ===================================================== -->
+    <section id="beneficios" class="section">
+        <div class="section__inner">
+            <h2>Benefícios</h2>
+
+            <div class="cards">
+                <article class="card">
+                    <h3>Foco em profissões do futuro</h3>
+                    <p>
+                        Curadoria voltada para áreas em alta, como tecnologia, dados,
+                        experiência do usuário e sustentabilidade.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Trilhas personalizadas</h3>
+                    <p>
+                        Sugestões de cursos de acordo com o seu tempo disponível,
+                        nível atual e metas de curto e médio prazo.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Base técnica sólida</h3>
+                    <p>
+                        API em <strong>Spring Boot</strong> com segurança, mensageria,
+                        cache, internacionalização e recursos de
+                        <strong>IA generativa</strong>, pronta para web e mobile.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/admin-layout :: layoutAdmin('SkillUp • Painel', ~{::content})}">
+<body>
+<div th:fragment="content" class="admin">
+
+    <!-- CABEÇALHO / IDEIA PRINCIPAL -->
+    <div class="admin__header">
+        <h1>Bem-vindo ao SkillUp 👋</h1>
+    </div>
+
+    <!-- KPIs -->
+    <section class="kpi">
+        <!-- Só admin vê o card de usuários -->
+        <div class="kpi__item" th:if="${isAdmin}">
+            <div class="kpi__title">Usuários</div>
+            <div class="kpi__value" th:text="${usuariosCount} ?: 0">0</div>
+        </div>
+
+        <div class="kpi__item">
+            <div class="kpi__title">Cursos</div>
+            <div class="kpi__value" th:text="${cursosCount} ?: 0">0</div>
+        </div>
+
+        <div class="kpi__item">
+            <div class="kpi__title">Habilidades</div>
+            <div class="kpi__value" th:text="${habilidadesCount} ?: 0">0</div>
+        </div>
+
+        <div class="kpi__item">
+            <div class="kpi__title">
+                <span th:if="${isAdmin}">Recomendações totais</span>
+                <span th:unless="${isAdmin}">Minhas recomendações</span>
+            </div>
+            <div class="kpi__value" th:text="${recomendacoesCount} ?: 0">0</div>
+        </div>
+    </section>
+
+    <!-- ================= USUÁRIOS (SÓ ADMIN) ================ -->
+    <section class="accordion is-open" th:if="${isAdmin}">
+        <div class="accordion__head"
+             onclick="this.parentElement.classList.toggle('is-open')">
+            <span>Usuários</span><span>▾</span>
+        </div>
+
+        <div class="accordion__body">
+
+            <h3>Adicionar / Atualizar</h3>
+            <form class="form-row" th:action="@{/admin/usuarios}" method="post" novalidate>
+                <input type="hidden" th:if="${_csrf != null}"
+                       th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="id" th:value="${usuario?.id}">
+
+                <div class="col-4">
+                    <label>Nome</label>
+                    <input type="text" name="nome"
+                           th:value="${usuario?.nome}"
+                           placeholder="Nome completo" required>
+                </div>
+
+                <div class="col-4">
+                    <label>Email</label>
+                    <input type="email" name="email"
+                           th:value="${usuario?.email}"
+                           placeholder="email@skillup.com" required>
+                </div>
+
+                <div class="col-4">
+                    <label>Senha</label>
+                    <input type="password" name="senha"
+                           placeholder="••••••">
+                </div>
+
+                <div class="col-4">
+                    <label>Profissão atual</label>
+                    <input type="text" name="profissaoAtual"
+                           th:value="${usuario?.profissaoAtual}"
+                           placeholder="ex: Desenvolvedor Jr.">
+                </div>
+
+                <div class="col-8">
+                    <label>Meta profissional</label>
+                    <input type="text" name="metaProfissional"
+                           th:value="${usuario?.metaProfissional}"
+                           placeholder="ex: Desenvolvedor Front-end Sênior" required>
+                </div>
+
+                <div class="col-4">
+                    <label>Perfil</label>
+                    <select name="tipo">
+                        <option value="USER"
+                                th:selected="${tipoUsuario == 'USER'}">USER</option>
+                        <option value="ADMIN"
+                                th:selected="${tipoUsuario == 'ADMIN'}">ADMIN</option>
+                    </select>
+                </div>
+
+                <div class="col-8 right">
+                    <button type="submit" class="btn">Salvar</button>
+                </div>
+            </form>
+
+            <h3 class="mt-16">Buscar por ID</h3>
+            <form class="form-row" th:action="@{/admin/usuarios/buscar}" method="get" novalidate>
+                <div class="col-8">
+                    <label>ID</label>
+                    <input type="number" name="id" min="1"
+                           placeholder="ex: 1" required>
+                </div>
+                <div class="col-4 right">
+                    <button type="submit" class="btn btn-outline">Buscar</button>
+                </div>
+            </form>
+
+            <!-- Resultado da busca de usuário -->
+            <div class="mt-12" th:if="${usuarioBusca != null}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>EMAIL</th>
+                        <th>PROFISSÃO</th>
+                        <th>META PROFISSIONAL</th>
+                        <th class="right">AÇÕES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${usuarioBusca.id}">1</td>
+                        <td th:text="${usuarioBusca.nome}">Fulano</td>
+                        <td th:text="${usuarioBusca.email}">email@x.com</td>
+                        <td th:text="${usuarioBusca.profissaoAtual}">TI</td>
+                        <td th:text="${usuarioBusca.metaProfissional}">Meta</td>
+                        <td class="right">
+                            <a th:href="@{|/admin/usuarios/buscar?id=${usuarioBusca.id}|}"
+                               class="btn btn-outline mini">Editar</a>
+                            <form th:action="@{|/admin/usuarios/${usuarioBusca.id}/excluir|}"
+                                  method="post" style="display:inline">
+                                <input type="hidden" th:if="${_csrf != null}"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn-outline mini"
+                                        onclick="return confirm('Excluir usuário?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-16">Todos os Usuários</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOME</th>
+                    <th>EMAIL</th>
+                    <th>PROFISSÃO</th>
+                    <th>META PROFISSIONAL</th>
+                    <th class="right">AÇÕES</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u : ${usuariosList}">
+                    <td th:text="${u.id}">1</td>
+                    <td th:text="${u.nome}">Nome</td>
+                    <td th:text="${u.email}">email@x.com</td>
+                    <td th:text="${u.profissaoAtual}">TI</td>
+                    <td th:text="${u.metaProfissional}">Meta</td>
+                    <td class="right">
+                        <a th:href="@{|/admin/usuarios/buscar?id=${u.id}|}"
+                           class="btn btn-outline mini">Editar</a>
+                        <form th:action="@{|/admin/usuarios/${u.id}/excluir|}"
+                              method="post" style="display:inline">
+                            <input type="hidden" th:if="${_csrf != null}"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}">
+                            <button type="submit" class="btn btn-outline mini"
+                                    onclick="return confirm('Excluir usuário?')">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+
+    <!-- ================= CURSOS ================ -->
+    <section class="accordion">
+        <div class="accordion__head"
+             onclick="this.parentElement.classList.toggle('is-open')">
+            <span>Cursos</span><span>▾</span>
+        </div>
+
+        <div class="accordion__body">
+
+            <h3>Adicionar / Atualizar</h3>
+            <form class="form-row" th:action="@{/admin/cursos}" method="post">
+                <input type="hidden" th:if="${_csrf != null}"
+                       th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="id" th:value="${curso?.id}">
+
+                <div class="col-6">
+                    <label>Nome do curso</label>
+                    <input type="text" name="nome"
+                           th:value="${curso?.nome}" required>
+                </div>
+
+                <div class="col-6">
+                    <label>Área</label>
+                    <input type="text" name="area"
+                           th:value="${curso?.area}"
+                           placeholder="ex: Front-end, Dados, Cloud" required>
+                </div>
+
+                <div class="col-4">
+                    <label>Carga horária (h)</label>
+                    <input type="number" name="cargaHoraria"
+                           th:value="${curso?.cargaHoraria}" min="1">
+                </div>
+
+                <div class="col-4">
+                    <label>Nível</label>
+                    <input type="text" name="nivel"
+                           th:value="${curso?.nivel}"
+                           placeholder="Básico / Intermediário / Avançado">
+                </div>
+
+                <div class="col-4 right">
+                    <button type="submit" class="btn">Salvar</button>
+                </div>
+            </form>
+
+            <h3 class="mt-16">Buscar por ID</h3>
+            <form class="form-row" th:action="@{/admin/cursos/buscar}" method="get">
+                <div class="col-8">
+                    <label>ID</label>
+                    <input type="number" name="id" min="1" required>
+                </div>
+                <div class="col-4 right">
+                    <button type="submit" class="btn btn-outline">Buscar</button>
+                </div>
+            </form>
+
+            <!-- Resultado da busca de curso -->
+            <div class="mt-12" th:if="${cursoBusca != null}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>ÁREA</th>
+                        <th>CARGA (h)</th>
+                        <th>NÍVEL</th>
+                        <th class="right">AÇÕES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${cursoBusca.id}">1</td>
+                        <td th:text="${cursoBusca.nome}">Curso</td>
+                        <td th:text="${cursoBusca.area}">Front-end</td>
+                        <td th:text="${cursoBusca.cargaHoraria}">40</td>
+                        <td th:text="${cursoBusca.nivel}">Básico</td>
+                        <td class="right">
+                            <a th:href="@{|/admin/cursos/buscar?id=${cursoBusca.id}|}"
+                               class="btn btn-outline mini">Editar</a>
+                            <form th:action="@{|/admin/cursos/${cursoBusca.id}/excluir|}"
+                                  method="post" style="display:inline">
+                                <input type="hidden" th:if="${_csrf != null}"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn-outline mini"
+                                        onclick="return confirm('Excluir curso?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Lista completa – só admin precisa ver -->
+            <div th:if="${isAdmin}">
+                <h3 class="mt-16">Todos os Cursos</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>ÁREA</th>
+                        <th>CARGA (h)</th>
+                        <th>NÍVEL</th>
+                        <th class="right">AÇÕES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c : ${cursosList}">
+                        <td th:text="${c.id}">1</td>
+                        <td th:text="${c.nome}">Curso</td>
+                        <td th:text="${c.area}">Front-end</td>
+                        <td th:text="${c.cargaHoraria}">40</td>
+                        <td th:text="${c.nivel}">Básico</td>
+                        <td class="right">
+                            <a th:href="@{|/admin/cursos/buscar?id=${c.id}|}"
+                               class="btn btn-outline mini">Editar</a>
+                            <form th:action="@{|/admin/cursos/${c.id}/excluir|}"
+                                  method="post" style="display:inline">
+                                <input type="hidden" th:if="${_csrf != null}"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn-outline mini"
+                                        onclick="return confirm('Excluir curso?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= HABILIDADES ================ -->
+    <section class="accordion">
+        <div class="accordion__head"
+             onclick="this.parentElement.classList.toggle('is-open')">
+            <span>Habilidades</span><span>▾</span>
+        </div>
+
+        <div class="accordion__body">
+
+            <h3>Adicionar / Atualizar</h3>
+            <form class="form-row" th:action="@{/admin/habilidades}" method="post">
+                <input type="hidden" th:if="${_csrf != null}"
+                       th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <input type="hidden" name="id" th:value="${habilidade?.id}">
+
+                <div class="col-6">
+                    <label>Nome da habilidade</label>
+                    <input type="text" name="nome"
+                           th:value="${habilidade?.nome}" required>
+                </div>
+
+                <div class="col-12">
+                    <label>Descrição</label>
+                    <input type="text" name="descricao"
+                           th:value="${habilidade?.descricao}">
+                </div>
+
+                <div class="col-12 right">
+                    <button type="submit" class="btn">Salvar</button>
+                </div>
+            </form>
+
+            <h3 class="mt-16">Buscar por ID</h3>
+            <form class="form-row" th:action="@{/admin/habilidades/buscar}" method="get">
+                <div class="col-8">
+                    <label>ID</label>
+                    <input type="number" name="id" min="1" required>
+                </div>
+                <div class="col-4 right">
+                    <button type="submit" class="btn btn-outline">Buscar</button>
+                </div>
+            </form>
+
+            <div class="mt-12" th:if="${habilidadeBusca != null}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>DESCRIÇÃO</th>
+                        <th class="right">AÇÕES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${habilidadeBusca.id}">1</td>
+                        <td th:text="${habilidadeBusca.nome}">React</td>
+                        <td th:text="${habilidadeBusca.descricao}">Descrição</td>
+                        <td class="right">
+                            <a th:href="@{|/admin/habilidades/buscar?id=${habilidadeBusca.id}|}"
+                               class="btn btn-outline mini">Editar</a>
+                            <form th:action="@{|/admin/habilidades/${habilidadeBusca.id}/excluir|}"
+                                  method="post" style="display:inline">
+                                <input type="hidden" th:if="${_csrf != null}"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn-outline mini"
+                                        onclick="return confirm('Excluir habilidade?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Lista completa – só admin precisa ver -->
+            <div th:if="${isAdmin}">
+                <h3 class="mt-16">Todas as Habilidades</h3>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOME</th>
+                        <th>DESCRIÇÃO</th>
+                        <th class="right">AÇÕES</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="h : ${habilidadesList}">
+                        <td th:text="${h.id}">1</td>
+                        <td th:text="${h.nome}">React</td>
+                        <td th:text="${h.descricao}">Descrição</td>
+                        <td class="right">
+                            <a th:href="@{|/admin/habilidades/buscar?id=${h.id}|}"
+                               class="btn btn-outline mini">Editar</a>
+                            <form th:action="@{|/admin/habilidades/${h.id}/excluir|}"
+                                  method="post" style="display:inline">
+                                <input type="hidden" th:if="${_csrf != null}"
+                                       th:name="${_csrf.parameterName}"
+                                       th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn-outline mini"
+                                        onclick="return confirm('Excluir habilidade?')">
+                                    Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= RECOMENDAÇÕES ================ -->
+    <section class="accordion">
+        <div class="accordion__head"
+             onclick="this.parentElement.classList.toggle('is-open')">
+            <span>Recomendações (IA + mensageria)</span><span>▾</span>
+        </div>
+
+        <div class="accordion__body">
+
+            <!-- ========== ADMIN: gera recomendação para QUALQUER usuário ========== -->
+            <div th:if="${isAdmin}">
+                <h3>Gerar recomendações para um usuário</h3>
+                <p class="small-text">
+                    Informe o <strong>ID do usuário</strong> e clique em
+                    <strong>Gerar com IA</strong>. A IA monta a trilha e publica
+                    as recomendações em uma fila de mensageria (RabbitMQ).
+                </p>
+
+                <form th:action="@{/admin/recomendacoes/gerar}" method="post" class="mt-12">
+                    <input type="hidden" th:if="${_csrf != null}"
+                           th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                    <div class="form-row">
+                        <div class="col-4">
+                            <label for="usuarioIdAdmin">ID do usuário</label>
+                            <input
+                                    type="number"
+                                    id="usuarioIdAdmin"
+                                    name="usuarioId"
+                                    placeholder="Ex.: 1"
+                                    required
+                            />
+                        </div>
+
+                        <div class="col-4 center">
+                            <button type="submit" class="btn btn-outline">
+                                Gerar com IA
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- ========== USER: gera recomendação para ELE MESMO ========== -->
+            <div th:if="${!isAdmin}">
+                <h3>Gerar recomendações com IA</h3>
+                <form class="form-row" th:action="@{/recomendacoes/gerar}" method="post">
+                    <input type="hidden" th:if="${_csrf != null}"
+                           th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                    <div class="col-12 right">
+                        <button type="submit" class="btn">Gerar minhas recomendações</button>
+                    </div>
+                </form>
+
+                <p class="mt-8 small-text">
+                    A IA analisa sua meta profissional e suas habilidades cadastradas
+                    para sugerir trilhas personalizadas de cursos.
+                </p>
+            </div>
+
+            <!-- ========== TABELA COM RECOMENDAÇÕES (admin OU user) ========== -->
+            <h3 class="mt-16">Minhas recomendações</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CURSO</th>
+                    <th>SCORE</th>
+                    <th>DATA</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="r : ${recomendacoesUsuario}">
+                    <td th:text="${r.id}">1</td>
+                    <td th:text="${r.curso != null ? r.curso.nome : '—'}">Curso</td>
+                    <td th:text="${r.scoreCompatibilidade}">0.95</td>
+                    <td th:text="${#temporals.format(r.dataGeracao, 'dd/MM/yyyy HH:mm')}">
+                        01/01/2025
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(recomendacoesUsuario)}">
+                    <td colspan="4">Nenhuma recomendação encontrada.</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Mensagens de feedback -->
+            <p class="mt-8 small-text" th:if="${mensagemRecomendacao}"
+               th:text="${mensagemRecomendacao}"></p>
+            <p class="mt-8 small-text" th:if="${erroRecomendacao}"
+               style="color:#b91c1c" th:text="${erroRecomendacao}"></p>
+
+        </div>
+    </section>
+</div>
+</body>
+</html>

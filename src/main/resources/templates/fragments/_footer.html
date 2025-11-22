@@ -1,0 +1,5 @@
+<footer th:fragment="footer" class="container footer"
+        xmlns:th="http://www.thymeleaf.org">
+    © <span th:text="${#calendars.format(#dates.createNow(),'yyyy')}">2025</span>
+    SkillUp • Plataforma de Requalificação Profissional com IA
+</footer>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layoutAdmin(title, content)">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${title}">SkillUp • Admin</title>
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="admin-page">
+
+<div class="app admin-app">
+
+  <!-- Cabeçalho do painel admin -->
+  <header class="admin-header">
+    <div class="admin-header__logo">
+      <a th:href="@{/app}">
+        <img th:src="@{/images/Logo_gs.png}" alt="SkillUp">
+      </a>
+    </div>
+  </header>
+
+
+  <main class="app__content admin-content">
+    <div th:replace="${content}"></div>
+  </main>
+  <!-- RODAPÉ / BOTÃO SAIR ALINHADO À DIREITA -->
+  <div class="admin__footer">
+    <form th:action="@{/logout}" method="post" style="margin:0">
+      <input type="hidden" th:if="${_csrf != null}"
+             th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <button type="submit" class="btn btn-outline">Sair</button>
+    </form>
+  </div>
+
+  <footer class="footer admin-footer">
+    <p>© 2025 SkillUp • Plataforma de Requalificação Profissional com IA</p>
+  </footer>
+</div>
+
+</body>
+</html>

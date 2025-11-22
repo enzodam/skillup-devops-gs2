@@ -1,0 +1,859 @@
+/* ======================================================================
+   PALETA DE CORES (baseada no logo)
+   ====================================================================== */
+:root {
+    --primary: #2b6a9b;        /* azul principal do logo */
+    --primary-dark: #214f71;   /* azul mais escuro */
+    --primary-soft: #e8f2fb;   /* azul bem clarinho, para fundos / chips */
+    --bg: #f4f7fb;             /* fundo geral bem suave */
+    --text: #214f71;           /* texto principal (azul escuro) */
+    --muted: #6b7280;          /* texto secundário */
+    --white: #ffffff;
+    --radius-lg: 16px;
+}
+
+/* ======================================================================
+   RESET BÁSICO
+   ====================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* BODY genérico (home + páginas internas) */
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top left, #e0ebf7, #f9fafb);
+    color: var(--text);
+}
+
+/* BODY das telas de autenticação (login / register) – centraliza o card */
+body.auth-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* espaço pro conteúdo por causa do header fixo (usado no layout do home) */
+.app .page {
+    padding-top: 80px;
+}
+
+/* container genérico se precisar usar em páginas internas */
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+}
+
+/* ======================================================================
+   HEADER / NAVBAR (usado apenas no layout com home)
+   ====================================================================== */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+    z-index: 1000;
+}
+
+/* LOGO MAIOR NO HEADER (todas as páginas com topbar) */
+.topbar__logo {
+    height: 72px;       /* aumenta ou diminui aqui se quiser */
+    width: auto;
+    display: block;
+}
+
+/* grupo esquerdo (logo) */
+.topbar__left {
+    display: flex;
+    align-items: center;
+}
+
+.topbar__brand {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* navegação do topo */
+.topbar__nav a {
+    margin: 0 14px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.topbar__nav a:hover {
+    color: var(--primary);
+}
+
+/* links de ação (login / registre-se) */
+.topbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.topbar__link {
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+.topbar__btn {
+    text-decoration: none;
+    background: var(--primary);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* ======================================================================
+   BOTÕES GENÉRICOS
+   ====================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: 0 14px 30px rgba(43, 106, 155, 0.35);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+/* ======================================================================
+   LOGIN E REGISTER – usando sua estrutura original (main-container/card)
+   ====================================================================== */
+
+.main-container {
+    width: 100%;
+    max-width: 960px;
+    padding: 24px;
+    margin: 0 auto;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+/* lado do logo + nome dentro do card */
+.logo-area {
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.logo-area img {
+    width: 170px;     /* >>> logo grande no login / register <<< */
+    height: auto;
+    margin-bottom: 12px;
+}
+
+.logo-area .app-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+/* lado do conteúdo (título + formulário) */
+.content-area {
+    flex: 1;
+}
+
+.content-area h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    color: var(--primary-dark);
+}
+
+.content-area p.subtitle {
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+/* listas internas (se usar) */
+.content-area ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin-bottom: 16px;
+}
+
+/* links genéricos */
+a,
+button {
+    cursor: pointer;
+}
+
+a.link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a.link:hover {
+    text-decoration: underline;
+}
+
+/* grid do formulário de login/register */
+.form-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+    margin-bottom: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    padding: 8px 10px;
+    font-size: 0.95rem;
+    outline: none;
+    background-color: #f7fbff;
+}
+
+.form-group input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px rgba(43, 106, 155, 0.3);
+}
+
+/* radios do register */
+.radio-group {
+    margin-top: 8px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+/* botão principal do card (Entrar / Registrar) */
+.btn-primary-card,
+button.btn-primary {
+    background: var(--primary);
+    border: none;
+    padding: 9px 18px;
+    border-radius: 999px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 8px 20px rgba(43, 106, 155, 0.35);
+}
+
+.btn-primary-card:hover,
+button.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* botão secundário (link Criar conta / Voltar) */
+.btn-secondary {
+    border: none;
+    background: transparent;
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* responsivo do card login/register */
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .logo-area {
+        text-align: left;
+        width: 100%;
+    }
+
+    .logo-area img {
+        width: 220px;   /* ainda maior no mobile */
+        height: auto;
+        margin-bottom: 12px;
+    }
+}
+
+/* ======================================================================
+   LANDING / HOME PUBLIC
+   ====================================================================== */
+
+.landing {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ====================== HERO ====================== */
+.hero {
+    padding: 40px 0 56px;
+}
+
+.hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 48px;
+    align-items: center;
+}
+
+.hero__tag {
+    display: inline-block;
+    background: var(--primary-soft);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.hero h1 {
+    font-size: 2.8rem;
+    line-height: 1.1;
+    color: var(--primary-dark);
+    margin-bottom: 16px;
+}
+
+.hero__subtitle {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.hero__actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.hero__meta {
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+/* imagem nova (graduando + IA) do lado direito */
+.hero__visual {
+    display: flex;
+    justify-content: center;
+}
+
+.hero__image {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 24px;
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.18);
+}
+
+/* ====================== SEÇÕES GENÉRICAS ====================== */
+
+.section {
+    padding: 56px 0;
+}
+
+.section__inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.section--light {
+    background: var(--white);
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    margin-top: 16px;
+}
+
+.section h2 {
+    font-size: 1.9rem;
+    margin-bottom: 16px;
+    color: var(--primary-dark);
+}
+
+/* grid de passos (Como funciona) */
+.steps {
+    display: grid;
+    gap: 24px;
+}
+
+.step__number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+/* SEÇÃO DO PLANO – exemplo de requalificação */
+.section--plan {
+    padding-top: 24px;
+}
+
+.plan-card {
+    margin-top: 16px;
+    background: var(--white);
+    border-radius: 22px;
+    padding: 24px 28px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+}
+
+.plan-card ul {
+    margin: 12px 0 12px 18px;
+}
+
+/* SEÇÃO: IA GENERATIVA (antes preta, agora azul do logo) */
+.section--dark {
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 24px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
+}
+
+.section--dark h2 {
+    color: var(--white);
+}
+
+.section--dark p,
+.section--dark li {
+    color: var(--white);
+}
+
+/* ====================== CARDS GENÉRICOS ====================== */
+
+/* CARTÕES DE BENEFÍCIOS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* sobrescreve o .card usado no login/register para os cards de benefícios */
+.cards .card {
+    display: block;      /* título em cima, texto embaixo */
+    align-items: initial;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+    border: none;
+}
+
+/* ======================================================================
+   SEÇÃO "BENEFÍCIOS" – igual ao layout antigo que você curtiu
+   ====================================================================== */
+
+/* mesma cor de fundo do resto da página (sem faixa estranha) */
+#beneficios {
+    background: transparent;
+}
+
+/* título "Benefícios" */
+#beneficios h2 {
+    color: var(--primary-dark);
+}
+
+/* cards de benefícios (Foco / Trilhas / Base técnica) */
+#beneficios .cards {
+    margin-top: 24px;
+}
+
+#beneficios .card h3 {
+    color: var(--primary-dark);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#beneficios .card p {
+    color: var(--muted);
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+/* ======================================================================
+   RESPONSIVO – HOME
+   ====================================================================== */
+
+@media (max-width: 900px) {
+    .hero__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 16px;
+    }
+
+    .topbar {
+        padding: 0 16px;
+    }
+}
+
+
+/* ======================================================================
+   ÁREA LOGADA – HOME USER E ADMIN
+   ====================================================================== */
+
+/* container geral dentro do layout (já tem .page + .container) */
+.home,
+.admin {
+    padding: 32px 0 64px;
+}
+
+/* ---------- HOME USER ---------- */
+
+.home__hero {
+    max-width: 640px;
+    margin-bottom: 24px;
+}
+
+.home__hero h1 {
+    font-size: 1.9rem;
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+}
+
+.home__hero p {
+    color: var(--muted);
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.home__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 16px;
+}
+
+.home-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+}
+
+.home-card h2 {
+    font-size: 1.15rem;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+}
+
+.home-card p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.home-card .btn {
+    margin-top: 6px;
+}
+
+/* ======================================================================= */
+/* ======================= ÁREA ADMIN — SKILLUP ========================== */
+/* ======================================================================= */
+
+.admin {
+    padding: 24px 0 40px;
+}
+
+/* ===================== HEADER GLOBAL DO ADMIN ====================== */
+
+/* Cabeçalho do painel admin + logo centralizado */
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0 24px;
+}
+
+/* Container do logo */
+.admin-header__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Tamanho do logo (ajusta o height se quiser maior/menor) */
+.admin-header__logo img {
+    height: 160px;   /* aumenta/diminui aqui */
+    width: auto;
+}
+
+/* ====================== KPIs ====================== */
+
+.kpi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.kpi__item {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.12);
+}
+
+.kpi__title {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+}
+
+.kpi__value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.kpi__hint {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* ====================== FORM / GRID ====================== */
+
+.admin h3 {
+    font-size: 1rem;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    color: var(--primary-dark);
+}
+
+/* Grid de 12 colunas igual ao projeto antigo */
+.admin .form-row {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 10px 12px;
+    align-items: flex-end;
+}
+
+.admin .form-row > .col-3 { grid-column: span 3; }
+.admin .form-row > .col-4 { grid-column: span 4; }
+.admin .form-row > .col-5 { grid-column: span 5; }
+.admin .form-row > .col-6 { grid-column: span 6; }
+.admin .form-row > .col-8 { grid-column: span 8; }
+.admin .form-row > .col-12 { grid-column: span 12; }
+
+/* Inputs / selects dentro da área admin */
+.admin input[type="text"],
+.admin input[type="number"],
+.admin input[type="email"],
+.admin input[type="password"],
+.admin select {
+    width: 100%;
+    background: #f9fafb;
+    color: #111827;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.admin input::placeholder {
+    color: #9ca3af;
+}
+
+.admin input:focus,
+.admin select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, .15);
+}
+
+/* Helpers */
+.admin .mt-8 { margin-top: 8px; }
+.admin .mt-12 { margin-top: 12px; }
+.admin .mt-16 { margin-top: 16px; }
+.admin .center { display: flex; align-items: center; gap: 8px; }
+.admin .right { text-align: right; }
+
+/* Badge tipo “Sim/Não” */
+.admin .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ====================== ACCORDION ====================== */
+
+.admin .accordion {
+    border-radius: 16px;
+    background: var(--white);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.admin .accordion__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--primary-dark);
+    background: linear-gradient(90deg, #f3f4ff, #ffffff);
+}
+
+.admin .accordion__head span:last-child {
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.admin .accordion__head:hover {
+    background: #eef2ff;
+}
+
+.admin .accordion__body {
+    display: none;
+    padding: 14px 18px 18px;
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+.admin .accordion.is-open .accordion__body {
+    display: block;
+}
+
+/* ====================== TABELAS ====================== */
+
+.admin .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.85rem;
+}
+
+.admin .table thead th {
+    text-align: left;
+    padding: 8px 6px;
+    color: var(--muted);
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.admin .table tbody td {
+    padding: 8px 6px;
+    border-bottom: 1px solid #f3f4f6;
+    color: #111827;
+}
+
+/* Mini botões dentro da tabela */
+.admin .btn.mini {
+    padding: 6px 10px;
+    font-size: 0.78rem;
+}
+
+/* ====================== TEXTOS MENORES ====================== */
+
+.small-text {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+/* ====================== FOOTER GLOBAL DO ADMIN ====================== */
+
+.admin-footer {
+    text-align: center;
+    padding: 20px 0 24px;
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+/* (se ainda tiver .admin__footer em outras páginas, pode manter ou remover)
+.admin__footer {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+}
+*/
+
+/* ====================== RESPONSIVO ====================== */
+
+@media (max-width: 768px) {
+    .home,
+    .admin {
+        padding-top: 20px;
+    }
+
+    .admin__header h1 {
+        font-size: 1.6rem;
+    }
+
+    .admin .form-row {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+
+    .admin .form-row > [class^="col-"] {
+        grid-column: span 1;
+    }
+
+    .admin-header {
+        padding-inline: 16px;
+    }
+
+    .admin-logo img {
+        height: 30px;
+    }
+}
