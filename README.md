@@ -233,10 +233,10 @@ server.port=8080
 
 | Recurso                       | Link           |
 | ----------------------------- | -------------- |
-| 🔗 Azure DevOps (projeto)     | *colocar link* |
-| 🔗 Azure Web App (API Online) | *colocar link* |
-| 🎥 Vídeo da apresentação      | *colocar link* |
-| 📦 Repositório GitHub         | *colocar link* |
+| 🔗 Azure DevOps (projeto)     | [Acessar Pipeline no Azure DevOps](https://dev.azure.com/RM558438/GS%202%20-%20DEVOPS%20TOOLS%20and%20CLOUD%20COMPUTING) |
+| 🔗 Azure Web App (API Online) | [Acessar API hospedada]() |
+| 🎥 Vídeo da apresentação      | [Assistir vídeo da entrega]() |
+| 📦 Repositório GitHub         | [Acessar Repositório GitHub](https://github.com/enzodam/skillup-devops-gs2) |
 
 ## 👨‍💻 Desenvolvedores
 
