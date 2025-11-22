@@ -30,7 +30,7 @@ Essa automação reduz erros, aumenta consistência e viabiliza entregas rápida
 
 ## 🧩 Arquitetura CI/CD
 
-![Arquitetura CI/CD - SkillUp](./docs/arquitetura_gs.png)
+![Arquitetura CI/CD - SkillUp](./docs/Arquitetura_GS.png)
 
 ---
 
