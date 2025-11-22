@@ -11,7 +11,7 @@ LOCATION="canadacentral"
 POSTGRES_SERVER="pg-skillup-server"
 POSTGRES_DB="skillupdb"
 POSTGRES_USER="skillupadmin"
-POSTGRES_PASSWORD="SkillUp@2024!"   # senha fixa usada na GS
+POSTGRES_PASSWORD="SkillUp@2024!"
 
 # App Service
 PLAN_NAME="plan-skillup"
@@ -83,3 +83,4 @@ echo "  - Resource Group: $RESOURCE_GROUP"
 echo "  - PostgreSQL:     $POSTGRES_SERVER / DB: $POSTGRES_DB"
 echo "  - WebApp:         $WEBAPP_NAME"
 echo "========================================"
+
