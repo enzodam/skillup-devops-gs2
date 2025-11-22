@@ -1,13 +1,8 @@
 -- ============================================================
 --  script-bd.sql  -  Script de criação do banco SkillUp
 --  Banco: PostgreSQL (Azure Database for PostgreSQL Flexible Server)
---  Objetivo: criar as tabelas principais usadas na aplicação
---            e alguns dados iniciais para demonstração de CRUD.
+--  Objetivo: criar as tabelas principais usadas na aplicação e alguns dados iniciais para demonstração de CRUD.
 -- ============================================================
-
--- (Opcional) garantir o banco skillupdb
--- CREATE DATABASE skillupdb;
--- \c skillupdb;
 
 -- ===========================
 -- Tabela: usuarios
@@ -118,3 +113,4 @@ INSERT INTO habilidades (nome, descricao) VALUES
   ('Java', 'Desenvolvimento back-end com Java'),
   ('DevOps', 'Integração contínua e entrega contínua')
 ON CONFLICT DO NOTHING;
+
