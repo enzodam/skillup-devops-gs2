@@ -1,4 +1,4 @@
-#🚀 SkillUp API — Azure DevOps (CI/CD)
+# 🚀 SkillUp API — Azure DevOps (CI/CD)
 
 ## 📘 Descrição do Projeto
 A SkillUp API é uma aplicação Java Spring Boot voltada para gerenciamento de usuários, cursos, habilidades e recomendações personalizadas.
@@ -70,43 +70,35 @@ src/
 
 ## 🔁 Fluxo Completo CI/CD
 
-1️⃣ Commit / Push
-
+### 1️⃣ Commit / Push
 O desenvolvedor envia o código para o Azure Repos.
 
-2️⃣ Pull Request
 
-PR obrigatório
+### 2️⃣ Pull Request
+- PR obrigatório  
+- PR vinculado ao Work Item  
+- Revisão automática pelo RM (revisor padrão)
 
-PR vinculado ao Work Item
 
-Revisão automática pelo RM (revisor padrão)
-
-3️⃣ Merge na main
-
+### 3️⃣ Merge na main
 O merge aprovado aciona o CI automaticamente.
 
-4️⃣ Pipeline de Build (CI)
 
-Maven clean install
+### 4️⃣ Pipeline de Build (CI)
+- Maven clean install  
+- Testes automatizados  
+- Geração do artefato `.jar`  
+- Publicação no `drop`  
 
-Testes automáticos
 
-Geração do artefato .jar
+### 5️⃣ Pipeline de Release (CD)
+- Pega o artefato publicado  
+- Configura variáveis de ambiente  
+- Faz deploy no Azure Web App  
 
-Publicação no drop
 
-5️⃣ Pipeline de Release (CD)
-
-Pega o artefato
-
-Configura variáveis de ambiente
-
-Deploy no Azure Web App
-
-6️⃣ Web App Online
-
-API atualizada automaticamente.
+### 6️⃣ Web App Online
+API atualizada automaticamente e disponível para o usuário final.
 
 ---
 
@@ -142,16 +134,21 @@ server.port=8080
 
 ## 🔥 CRUD EXPOSO EM JSON
 
-📌 1. USUÁRIO
-POST /usuarios
+
+### 📌 1. USUÁRIO  
+**POST `/usuarios`**
+
+```json
 {
   "nome": "João da Silva",
   "email": "joao@gmail.com",
   "profissaoAtual": "Analista",
   "metaProfissional": "Desenvolvedor Backend"
 }
+```
 
-GET /usuarios/1
+**GET `/usuarios/1`**
+```json
 {
   "id": 1,
   "nome": "João da Silva",
@@ -159,17 +156,24 @@ GET /usuarios/1
   "profissaoAtual": "Analista",
   "metaProfissional": "Desenvolvedor Backend"
 }
+```
 
-📌 2. CURSO
-POST /cursos
+---
+
+### 📌 2. CURSO  
+**POST `/cursos`**
+
+```json
 {
   "nome": "Java Fundamentos",
   "area": "Programação",
   "nivel": "Iniciante",
   "cargaHoraria": 40
 }
+```
 
-GET /cursos
+**GET `/cursos`**
+```json
 [
   {
     "id": 1,
@@ -179,24 +183,39 @@ GET /cursos
     "cargaHoraria": 40
   }
 ]
+```
 
-📌 3. HABILIDADES
-POST /habilidades
+---
+
+### 📌 3. HABILIDADES  
+**POST `/habilidades`**
+
+```json
 {
   "nome": "Lógica de Programação",
   "descricao": "Conceitos essenciais de lógica"
 }
+```
 
-📌 4. USUARIO_HABILIDADE
-POST /usuario-habilidade
+---
+
+### 📌 4. USUARIO_HABILIDADE  
+**POST `/usuario-habilidade`**
+
+```json
 {
   "idUsuario": 1,
   "idHabilidade": 3,
   "nivelDominio": 4
 }
+```
 
-📌 5. RECOMENDAÇÕES
-GET /recomendacoes/usuario/1
+---
+
+### 📌 5. RECOMENDAÇÕES  
+**GET `/recomendacoes/usuario/1`**
+
+```json
 [
   {
     "idRecomendacao": 10,
@@ -206,6 +225,7 @@ GET /recomendacoes/usuario/1
     "dataGeracao": "2025-05-22"
   }
 ]
+```
 
 ---
 
@@ -232,9 +252,10 @@ GET /recomendacoes/usuario/1
 
 A SkillUp API implementa um pipeline completo, profissional e automatizado, com:
 
-✔ CI/CD
-✔ Deploy automático
-✔ Infra provisionada corretamente
-✔ Variáveis seguras
-✔ CRUD documentado
+✔ CI/CD  
+✔ Deploy automático  
+✔ Infra provisionada corretamente  
+✔ Variáveis seguras  
+✔ CRUD documentado  
 ✔ Boards + Repos + Pipelines integrados
+
