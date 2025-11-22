@@ -194,7 +194,9 @@ Resposta (200 – OK)
 
 ###🔴 DELETE — DELETE /api/usuarios/1
 ```json
-{}
+{
+  "mensagem": "Usuário removido com sucesso"
+}
 ```
 
 # 2️⃣ CURSO — /api/cursos
@@ -258,7 +260,9 @@ Resposta (200 – OK)
 
 ###🔴 DELETE — DELETE /api/cursos/1
 ```json
-{}
+{
+  "mensagem": "Curso removido com sucesso"
+}
 ```
 
 # 3️⃣ RECOMENDAÇÕES — /api/recomendacoes
