@@ -133,13 +133,27 @@ server.port=8080
 ---
 
 ## 🔥 CRUD EXPOSO EM JSON
+Endpoints da SkillUp API no formato **JSON** (Create, Read, Update, Delete).
+
+---
+
+# 1️⃣ USUÁRIO — `/api/usuarios`
 
 
-### 📌 1. USUÁRIO  
-**POST `/usuarios`**
+### 🟢 CREATE — `POST /api/usuarios`
 
 ```json
 {
+  "nome": "João da Silva",
+  "email": "joao@gmail.com",
+  "senha": "123456",
+  "profissaoAtual": "Analista",
+  "metaProfissional": "Desenvolvedor Backend"
+}
+
+Resposta (201 – Created)
+{
+  "id": 1,
   "nome": "João da Silva",
   "email": "joao@gmail.com",
   "profissaoAtual": "Analista",
@@ -147,7 +161,7 @@ server.port=8080
 }
 ```
 
-**GET `/usuarios/1`**
+###🔵 READ — GET /api/usuarios/1
 ```json
 {
   "id": 1,
@@ -158,11 +172,34 @@ server.port=8080
 }
 ```
 
----
+###🟡 UPDATE — PUT /api/usuarios/1
+```json
+{
+  "nome": "João da Silva",
+  "email": "joao@gmail.com",
+  "senha": "123456",
+  "profissaoAtual": "Desenvolvedor Backend",
+  "metaProfissional": "Arquiteto de Software"
+}
 
-### 📌 2. CURSO  
-**POST `/cursos`**
+Resposta (200 – OK)
+{
+  "id": 1,
+  "nome": "João da Silva",
+  "email": "joao@gmail.com",
+  "profissaoAtual": "Desenvolvedor Backend",
+  "metaProfissional": "Arquiteto de Software"
+}
+```
 
+###🔴 DELETE — DELETE /api/usuarios/1
+```json
+{}
+```
+
+# 2️⃣ CURSO — /api/cursos
+
+###🟢 CREATE — POST /api/cursos
 ```json
 {
   "nome": "Java Fundamentos",
@@ -170,59 +207,91 @@ server.port=8080
   "nivel": "Iniciante",
   "cargaHoraria": 40
 }
+
+Resposta (201 – Created)
+{
+  "id": 1,
+  "nome": "Java Fundamentos",
+  "area": "Programação",
+  "nivel": "Iniciante",
+  "cargaHoraria": 40
+}
 ```
 
-**GET `/cursos`**
+###🔵 READ — GET /api/cursos/1
 ```json
+{
+  "nome": "Java Fundamentos",
+  "area": "Programação",
+  "nivel": "Intermediário",
+  "cargaHoraria": 60
+}
+
+Resposta (201 – Created)
+{
+  "id": 1,
+  "nome": "Java Fundamentos",
+  "area": "Programação",
+  "nivel": "Intermediário",
+  "cargaHoraria": 60
+}
+```
+
+###🟡 UPDATE — PUT /api/cursos/1
+```json
+{
+  "nome": "Java Fundamentos",
+  "area": "Programação",
+  "nivel": "Intermediário",
+  "cargaHoraria": 60
+}
+
+Resposta (200 – OK)
+{
+  "id": 1,
+  "nome": "Java Fundamentos",
+  "area": "Programação",
+  "nivel": "Intermediário",
+  "cargaHoraria": 60
+}
+```
+
+###🔴 DELETE — DELETE /api/cursos/1
+```json
+{}
+```
+
+# 3️⃣ RECOMENDAÇÕES — /api/recomendacoes
+
+###🟢 GERAR RECOMENDAÇÕES — POST /api/recomendacoes/gerar
+```json
+{
+  "usuarioId": 1
+}
+
+Resposta (200 – OK)
 [
   {
-    "id": 1,
-    "nome": "Java Fundamentos",
-    "area": "Programação",
-    "nivel": "Iniciante",
-    "cargaHoraria": 40
+    "id": 10,
+    "usuarioId": 1,
+    "cursoId": 5,
+    "nomeCurso": "Java Fundamentos",
+    "scoreCompatibilidade": 0.87,
+    "dataGeracao": "2025-05-22T14:30:00"
   }
 ]
 ```
 
----
-
-### 📌 3. HABILIDADES  
-**POST `/habilidades`**
-
-```json
-{
-  "nome": "Lógica de Programação",
-  "descricao": "Conceitos essenciais de lógica"
-}
-```
-
----
-
-### 📌 4. USUARIO_HABILIDADE  
-**POST `/usuario-habilidade`**
-
-```json
-{
-  "idUsuario": 1,
-  "idHabilidade": 3,
-  "nivelDominio": 4
-}
-```
-
----
-
-### 📌 5. RECOMENDAÇÕES  
-**GET `/recomendacoes/usuario/1`**
-
+###🔵 LISTAR RECOMENDAÇÕES DO USUÁRIO — GET /api/recomendacoes/usuario/1
 ```json
 [
   {
-    "idRecomendacao": 10,
-    "idUsuario": 1,
-    "idCurso": 5,
+    "id": 10,
+    "usuarioId": 1,
+    "cursoId": 5,
+    "nomeCurso": "Java Fundamentos",
     "scoreCompatibilidade": 0.87,
-    "dataGeracao": "2025-05-22"
+    "dataGeracao": "2025-05-22T14:30:00"
   }
 ]
 ```
