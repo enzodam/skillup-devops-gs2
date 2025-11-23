@@ -307,8 +307,8 @@ Resposta (200 – OK)
 | Recurso                       | Link           |
 | ----------------------------- | -------------- |
 | 🔗 Azure DevOps (projeto)     | [Acessar Pipeline no Azure DevOps](https://dev.azure.com/RM558438/GS%202%20-%20DEVOPS%20TOOLS%20and%20CLOUD%20COMPUTING) |
-| 🔗 Azure Web App (API Online) | [Acessar API hospedada]() |
-| 🎥 Vídeo da apresentação      | [Assistir vídeo da entrega]() |
+| 🔗 Azure Web App (API Online) | [Acessar API hospedada](https://skillup-api-web.azurewebsites.net) |
+| 🎥 Vídeo da apresentação      | [Assistir vídeo da entrega](https://youtu.be/jhwL2frxJrM) |
 | 📦 Repositório GitHub         | [Acessar Repositório GitHub](https://github.com/enzodam/skillup-devops-gs2) |
 
 ## 👨‍💻 Desenvolvedores
